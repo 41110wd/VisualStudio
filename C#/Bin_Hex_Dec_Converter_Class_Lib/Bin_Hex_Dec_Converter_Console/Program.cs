@@ -13,7 +13,6 @@ namespace Bin_Hex_Dec_Converter_Console
         static void Main(string[] args)
         {
             Menu();
-
         }
 
         static void Menu()
@@ -28,7 +27,8 @@ namespace Bin_Hex_Dec_Converter_Console
                 Console.WriteLine("-----------------------------------");
                 Console.WriteLine("1. Binary     => Decimal");
                 Console.WriteLine("2. Decimal    => Binary");
-                Console.WriteLine("3. Hexdecimal => Decimal");
+                Console.WriteLine("3. Hexadecimal => Decimal");
+                Console.WriteLine("4. Decimal    => Hexadecimal");
                 Console.WriteLine("0. Exit");
                 Console.WriteLine();
 
@@ -47,6 +47,10 @@ namespace Bin_Hex_Dec_Converter_Console
                     case "3":
                     case "3.":
                         Hex_Dec();
+                        break;
+                    case "4":
+                    case "4.":
+                        Dec_Hex();
                         break;
                     case "0":
                     case "0.":
@@ -121,6 +125,26 @@ namespace Bin_Hex_Dec_Converter_Console
                 if (result == -1)
                     throw new Exception("No hexadecimal Number was entered");
                 Console.WriteLine($"Hexadecimal\t\tDecimal\n--------------------------------\n{hex}\t\t\t{result}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        static void Dec_Hex()
+        {
+            string result;
+            int dec;
+
+            Console.Write("Please enter decimal Number: ");
+
+            try
+            {
+                dec = Convert.ToInt32(Console.ReadLine());
+                Console.Clear();
+                result = Converting.GetHex_Dec(dec);                
+                Console.WriteLine($"Decimal\t\tHexadecimal\n--------------------------------\n{dec}\t\t{result}");
             }
             catch (Exception ex)
             {

@@ -64,7 +64,7 @@ namespace Bin_Hex_Dec_Converter_Class_Lib
 
         #endregion
 
-        #region Convert From hexadecimal to decimal
+        #region Convert from hexadecimal to decimal
 
         public static int GetDec_Hex(string hex)
         {
@@ -74,13 +74,13 @@ namespace Bin_Hex_Dec_Converter_Class_Lib
             int[] int_ar = new int[hex.Length];
             string[] str_ar = new string[hex.Length];
 
-            Dictionary<char, int> dic = new Dictionary<char, int>();
-            dic.Add('A', 10);
-            dic.Add('B', 11);
-            dic.Add('C', 12);
-            dic.Add('D', 13);
-            dic.Add('E', 14);
-            dic.Add('F', 15);   
+            Dictionary<string, int> dic = new Dictionary<string, int>();
+            dic.Add("A", 10);
+            dic.Add("B", 11);
+            dic.Add("C", 12);
+            dic.Add("D", 13);
+            dic.Add("E", 14);
+            dic.Add("F", 15);   
 
             // string array is filled with chars from the string Parameter hex, which get converted to strings so it is possible to try to convert them into int
             for (int i = 0;i<hex.Length;i++)
@@ -95,7 +95,7 @@ namespace Bin_Hex_Dec_Converter_Class_Lib
                 // if a string can't be converted to a number, the Dictionary is looked at and the corespondng value is stored in the int array if it is inside of the Dictionary
                 catch
                 {
-                    dic.TryGetValue(hex[i], out int_ar[i]);
+                    dic.TryGetValue(str_ar[i], out int_ar[i]);
                     if (int_ar[i] == 0)
                         return -1;
                 }
@@ -110,6 +110,52 @@ namespace Bin_Hex_Dec_Converter_Class_Lib
             }
 
             return result;
+        }
+
+        #endregion
+
+        #region Convert from decimal to hexadecimal
+
+        public static string GetHex_Dec(int dec)
+        {
+            int buffer;
+            string _buffer;
+            string result = "";
+
+            Dictionary<int, string> dic = new Dictionary<int, string>();
+            dic.Add(10, "A");
+            dic.Add(11, "B");
+            dic.Add(12, "C");
+            dic.Add(13, "D");
+            dic.Add(14, "E");
+            dic.Add(15, "F");
+
+            // loop throw until int dec is 0. if the modulo of dec is greater than 9 loock at Dictionary. Ad together and divide by 16.
+            for(int i = 0;dec>0; i++)
+            {
+                buffer = dec % 16;
+                if (buffer > 9)
+                {
+                    dic.TryGetValue(buffer, out _buffer);
+                    result += _buffer;
+                }
+                else
+                    result += buffer.ToString();
+                dec /= 16;
+            }
+
+            // string result needs to be reversed. new char Array now contains chars of string result then reverse and fill resutl again with in reversed order.
+            char [] cha = result.ToCharArray();
+            Array.Reverse(cha);
+
+            result = "";
+            foreach(char c in cha)
+            {
+                result += c;
+            }
+
+            return result;
+
         }
 
         #endregion
