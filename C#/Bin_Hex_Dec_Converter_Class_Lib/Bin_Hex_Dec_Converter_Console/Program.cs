@@ -9,14 +9,11 @@ namespace Bin_Hex_Dec_Converter_Console
 {
     class Program
     {
-        static Converting conv;
 
         static void Main(string[] args)
         {
-            conv = new Converting();
-
             Menu();
-            
+
         }
 
         static void Menu()
@@ -29,8 +26,9 @@ namespace Bin_Hex_Dec_Converter_Console
                 string selection;
                 Console.WriteLine("Binary Converter");
                 Console.WriteLine("-----------------------------------");
-                Console.WriteLine("1. Binary  => Decimal");
-                Console.WriteLine("2. Decimal => Binary");
+                Console.WriteLine("1. Binary     => Decimal");
+                Console.WriteLine("2. Decimal    => Binary");
+                Console.WriteLine("3. Hexdecimal => Decimal");
                 Console.WriteLine("0. Exit");
                 Console.WriteLine();
 
@@ -45,6 +43,10 @@ namespace Bin_Hex_Dec_Converter_Console
                     case "2":
                     case "2.":
                         Dec_Bin();
+                        break;
+                    case "3":
+                    case "3.":
+                        Hex_Dec();
                         break;
                     case "0":
                     case "0.":
@@ -70,7 +72,7 @@ namespace Bin_Hex_Dec_Converter_Console
             {
                 bin = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
-                result = conv.GetDec(bin);
+                result = Converting.GetDec(bin);
                 if (result == -1)
                 {
                     Console.WriteLine("No binary Number was entered");
@@ -95,8 +97,30 @@ namespace Bin_Hex_Dec_Converter_Console
             {
                 dec = Convert.ToInt32(Console.ReadLine());
                 Console.Clear();
-                result = conv.GetBin(dec);
+                result = Converting.GetBin(dec);
                 Console.WriteLine($"Decimal\t\tBinary\n--------------------------------\n{dec}\t\t{result}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        static void Hex_Dec()
+        {
+            int result;
+            string hex;
+
+            Console.Write("Please enter hexadecimal Number: ");
+
+            try
+            {
+                hex = Console.ReadLine();
+                Console.Clear();
+                result = Converting.GetDec_Hex(hex);
+                if (result == -1)
+                    throw new Exception("No hexadecimal Number was entered");
+                Console.WriteLine($"Hexadecimal\t\tDecimal\n--------------------------------\n{hex}\t\t\t{result}");
             }
             catch (Exception ex)
             {
