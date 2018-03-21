@@ -74,13 +74,15 @@ namespace Bin_Hex_Dec_Converter_Class_Lib
             int[] int_ar = new int[hex.Length];
             string[] str_ar = new string[hex.Length];
 
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            dic.Add("A", 10);
-            dic.Add("B", 11);
-            dic.Add("C", 12);
-            dic.Add("D", 13);
-            dic.Add("E", 14);
-            dic.Add("F", 15);   
+            Dictionary<string, int> dic = new Dictionary<string, int>(6)
+            {
+                { "A", 10 },
+                { "B", 11 },
+                { "C", 12 },
+                { "D", 13 },
+                { "E", 14 },
+                { "F", 15 }
+            };
 
             // string array is filled with chars from the string Parameter hex, which get converted to strings so it is possible to try to convert them into int
             for (int i = 0;i<hex.Length;i++)
@@ -122,16 +124,18 @@ namespace Bin_Hex_Dec_Converter_Class_Lib
             string _buffer;
             string result = "";
 
-            Dictionary<int, string> dic = new Dictionary<int, string>();
-            dic.Add(10, "A");
-            dic.Add(11, "B");
-            dic.Add(12, "C");
-            dic.Add(13, "D");
-            dic.Add(14, "E");
-            dic.Add(15, "F");
+            Dictionary<int, string> dic = new Dictionary<int, string>(6)
+            {
+                { 10, "A" },
+                { 11, "B" },
+                { 12, "C" },
+                { 13, "D" },
+                { 14, "E" },
+                { 15, "F" }
+            };
 
             // loop throw until int dec is 0. if the modulo of dec is greater than 9 loock at Dictionary. Ad together and divide by 16.
-            for(int i = 0;dec>0; i++)
+            for (int i = 0;dec>0; i++)
             {
                 buffer = dec % 16;
                 if (buffer > 9)
