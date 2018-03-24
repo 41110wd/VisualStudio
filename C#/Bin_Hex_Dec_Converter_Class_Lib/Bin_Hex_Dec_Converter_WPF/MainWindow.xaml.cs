@@ -141,6 +141,8 @@ namespace Bin_Hex_Dec_Converter_WPF
                 if (TextBox_Num.Text != "")
                 {
                     int result = Converting.GetDec(Convert.ToInt32(TextBox_Num.Text));
+                    if (result == -1)
+                        throw new Exception("No valid binary was entered. ");
                     TextBox_Result.Text = Converting.GetHex_Dec(result);
                 }
             }
