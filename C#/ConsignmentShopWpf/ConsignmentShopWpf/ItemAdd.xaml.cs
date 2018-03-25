@@ -25,8 +25,8 @@ namespace ConsignmentShopWpf
 
         ObservableCollection<Item> itemList;
         ObservableCollection<Vendor> vendorsList;
-        Shop shop;
         Connection con;
+        List<Item> copy;
 
         public ItemAdd()
         {
@@ -34,9 +34,9 @@ namespace ConsignmentShopWpf
 
             Refresh = false;
             con = new Connection();
-            shop = con.GetShop();
-            itemList = shop.ShopItems;
-            vendorsList = shop.ShopVendor;
+            //MainWindow.Shop = con.GetShop();
+            //itemList = MainWindow.Shop.ShopItems;
+            vendorsList = MainWindow.Shop.ShopVendor;
 
             GetItemDataGrid();
             foreach (Vendor ven in vendorsList)
@@ -48,10 +48,12 @@ namespace ConsignmentShopWpf
 
         private void itemAddButton_Click(object sender, RoutedEventArgs e)
         {
+            copy = new List<Item>(MainWindow.Shop.ShopItems);
             try
             {
                 if (itemPriceTextBox.Text.Contains("."))
                     throw new Exception("Please only use ','");
+
                 con.AddItem(new Item
                 {
                     Title = itemTitleTextBox.Text,
@@ -69,18 +71,23 @@ namespace ConsignmentShopWpf
             }
             MainWindow.Shop = con.GetShop();
 
+            CheckIfSold();
+
             itemDataGrid.ItemsSource = con.GetDtItem().DefaultView;
         }
 
         private void itemDeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            itemList = con.GetItem();
-            con.DeleteItemSpecificID(itemList[itemDataGrid.SelectedIndex].itemID);
+            copy = new List<Item>(MainWindow.Shop.ShopItems);
+            con.DeleteItemSpecificID(copy[itemDataGrid.SelectedIndex].itemID);
             MainWindow.Shop = con.GetShop();
+
+            CheckIfSold();
+
             GetItemDataGrid();
         }
 
-        public void GetItemDataGrid()
+        private void GetItemDataGrid()
         {
             itemDataGrid.ItemsSource = con.GetDtItem().DefaultView;
         }
@@ -88,6 +95,18 @@ namespace ConsignmentShopWpf
         private void Window_Closed(object sender, EventArgs e)
         {
             Refresh = true;
+        }
+
+        private void CheckIfSold()
+        {
+            for (int i = 0; i < copy.Count; i++)
+            {
+                if (copy[i].Sold)
+                {
+                    MainWindow.Shop.ShopItems[i].Sold = true;
+                    MessageBox.Show(MainWindow.Shop.ShopItems[i].Title);
+                }
+            }
         }
     }
 }

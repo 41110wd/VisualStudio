@@ -53,6 +53,7 @@ namespace ConsignmentShopWpf
                 lastNameTextBox.Text = "";
                 CommissionTextBox.Text = "";
 
+                MainWindow.Shop = con.GetShop();
                 GetRefreshDt();
             }
             catch (Exception ex)
@@ -65,7 +66,7 @@ namespace ConsignmentShopWpf
         {
             try
             {
-                venList = con.GetVen();
+                venList = MainWindow.Shop.ShopVendor;
                 int index = venList[dataGridVendor.SelectedIndex].ID;
                 con.DeleteItem(index);
                 con.DeleteVen(index);

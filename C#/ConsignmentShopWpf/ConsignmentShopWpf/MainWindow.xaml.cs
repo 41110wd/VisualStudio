@@ -23,7 +23,7 @@ namespace ConsignmentShopWpf
     public partial class MainWindow : Window
     {
         decimal storeProfit = 0;
-        Shop shop;
+        //Shop shop;
         ObservableCollection<Item> shoppingCartList;
         Connection con; 
         public static Shop Shop { get; set; }
@@ -33,18 +33,21 @@ namespace ConsignmentShopWpf
             InitializeComponent();
             con = new Connection();
             con.UpdateVendorInit();
-            shop = con.GetShop();
+            Shop = con.GetShop();
             shoppingCartList = new ObservableCollection<Item>();
-            itemsListBox.ItemsSource = shop.ShopItems;
-            vendorListBox.ItemsSource = shop.ShopVendor;
+            itemsListBox.ItemsSource = Shop.ShopItems;
+            vendorListBox.ItemsSource = Shop.ShopVendor;
         }
 
         private void addToCartButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                shoppingCartList.Add((Item)itemsListBox.SelectedItem);
-                shoppingCartListBox.ItemsSource = shoppingCartList;
+                if (!shoppingCartList.Contains(itemsListBox.SelectedItem))
+                {
+                    shoppingCartList.Add((Item)itemsListBox.SelectedItem);
+                    shoppingCartListBox.ItemsSource = shoppingCartList;
+                }
 
             }
             catch (Exception ex)
@@ -67,7 +70,7 @@ namespace ConsignmentShopWpf
                 item.Sold = true;
             }
 
-            //itemsListBox.ItemsSource = shop.ShopItems.Where(x => !x.Sold);
+            itemsListBox.ItemsSource = Shop.ShopItems.Where(x => !x.Sold);
 
             foreach (Item item in shoppingCartList)
             {
@@ -75,8 +78,8 @@ namespace ConsignmentShopWpf
                 con.UpdateVendor((double)item.Owner.Money,item.Owner.ID);
                 storeProfit += (1-(decimal)item.Owner.Commission)*(decimal)item.Price;
             }
-            shop.ShopVendor = con.GetVen();
-            vendorListBox.ItemsSource = shop.ShopVendor;
+            Shop.ShopVendor = con.GetVen();
+            vendorListBox.ItemsSource = Shop.ShopVendor;
             StoreProfitValueLabel.Content = "€ "+storeProfit;
             shoppingCartList.Clear();
 
@@ -90,8 +93,8 @@ namespace ConsignmentShopWpf
             {
                 if (VendorAdd.Refresh)
                 {
-                    shop = con.GetShop();
-                    vendorListBox.ItemsSource = shop.ShopVendor;
+                    //Shop = con.GetShop();
+                    vendorListBox.ItemsSource = Shop.ShopVendor;
                     break;
                 }
             }
@@ -105,8 +108,8 @@ namespace ConsignmentShopWpf
             {
                 if(ItemAdd.Refresh)
                 {
-                    shop = con.GetShop();
-                    itemsListBox.ItemsSource = shop.ShopItems;
+                    //Shop = con.GetShop();
+                    itemsListBox.ItemsSource = Shop.ShopItems.Where(x=>!x.Sold);
                     break;
                 }
             }
