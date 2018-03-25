@@ -21,6 +21,7 @@
         <Label x:Name="storeProfitLabel" Content="Store Profit:" HorizontalAlignment="Left" Margin="193,329,0,0" VerticalAlignment="Top" Width="111" FontWeight="Bold"/>
         <Label x:Name="StoreProfitValueLabel" Content="€ 0.00" HorizontalAlignment="Left" Margin="309,329,0,0" VerticalAlignment="Top" Width="111"/>
         <Button x:Name="editItemButton" Content="Edit Item" HorizontalAlignment="Left" Margin="24,255,0,0" VerticalAlignment="Top" Width="75" Click="editItemButton_Click"/>
+        <Button x:Name="NewConnectionButton" Content="Edit Connection" HorizontalAlignment="Left" Margin="347,495,0,0" VerticalAlignment="Top" Width="111" RenderTransformOrigin="-0.567,0.829" Click="NewConnectionButton_Click"/>
 
     </Grid>
 </Window>

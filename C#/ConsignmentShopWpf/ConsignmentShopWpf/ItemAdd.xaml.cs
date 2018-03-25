@@ -22,8 +22,6 @@ namespace ConsignmentShopWpf
     public partial class ItemAdd : Window
     {
         public static bool Refresh { get; set; }
-
-        ObservableCollection<Item> itemList;
         ObservableCollection<Vendor> vendorsList;
         Connection con;
         List<Item> copy;
@@ -33,7 +31,7 @@ namespace ConsignmentShopWpf
             InitializeComponent();
 
             Refresh = false;
-            con = new Connection();
+            con = Wellcome.ConnectionInfo;
             //MainWindow.Shop = con.GetShop();
             //itemList = MainWindow.Shop.ShopItems;
             vendorsList = MainWindow.Shop.ShopVendor;
@@ -104,7 +102,6 @@ namespace ConsignmentShopWpf
                 if (copy[i].Sold)
                 {
                     MainWindow.Shop.ShopItems[i].Sold = true;
-                    MessageBox.Show(MainWindow.Shop.ShopItems[i].Title);
                 }
             }
         }

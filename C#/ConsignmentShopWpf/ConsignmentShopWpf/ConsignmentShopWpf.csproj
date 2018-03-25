@@ -60,6 +60,9 @@
     <Compile Include="VendorAdd.xaml.cs">
       <DependentUpon>VendorAdd.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wellcome.xaml.cs">
+      <DependentUpon>Wellcome.xaml</DependentUpon>
+    </Compile>
     <Page Include="ItemAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -77,6 +80,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="VendorAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wellcome.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

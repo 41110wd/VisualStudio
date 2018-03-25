@@ -30,7 +30,7 @@ namespace ConsignmentShopWpf
         {
             InitializeComponent();
             Refresh = false;
-            con = new Connection();
+            con = Wellcome.ConnectionInfo;
             GetRefreshDt();
         }
 

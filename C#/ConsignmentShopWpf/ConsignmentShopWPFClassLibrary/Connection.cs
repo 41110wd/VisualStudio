@@ -16,7 +16,14 @@ namespace ConsignmentShopWPFClassLibrary
 
         public Connection()
         {
-            con = new MySqlConnection("Server=127.0.0.1;Port=3306;UID=root;database=consignmentshop");
+            //con = new MySqlConnection("Server=127.0.0.1;Port=3306;UID=root;database=consignmentshop;password=''");
+        }
+
+        public Connection(string serveraddress, string port, string uid, string db, string pwd)
+        {
+            
+
+            con = new MySqlConnection($"Server={serveraddress};Port={port};UID={uid};database={db}; password={pwd}");
         }
 
 
@@ -246,6 +253,20 @@ namespace ConsignmentShopWPFClassLibrary
             MySqlCommand cmd = new MySqlCommand("UPDATE vendor SET venMoney = '0'", con);
             cmd.ExecuteNonQuery();
             con.Close();
+        }
+
+        public bool ConnectionCheck()
+        {
+            try
+            {
+                con.Open();
+                con.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }
